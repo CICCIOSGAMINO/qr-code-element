@@ -1,0 +1,132 @@
+<!-- twitter / ig @cicciosgamino
+
+   _______           _                                  _
+  / ____(_)_________(_)___  _________ _____ _____ ___  (_)___  ____
+ / /   / / ___/ ___/ / __ \/ ___/ __ `/ __ `/ __ `__ \/ / __ \/ __ \
+/ /___/ / /__/ /__/ / /_/ (__  ) /_/ / /_/ / / / / / / / / / / /_/ /
+\____/_/\___/\___/_/\____/____/\__, /\__,_/_/ /_/ /_/_/_/ /_/\____/
+                              /____/
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="author" content="@cicciosgamino"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>QrCode Example</title>
+
+  <style>
+
+    * {
+      /* reset browser defaults */
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      /* base rem unit (10px) */
+      font-size: 62.5%;
+      block-size: 100%;
+
+      background-color: var(--surface1);
+      color: var(--text1);
+    }
+
+    body  {
+      padding: 7rem;
+      
+      font-family: system-ui, sans-serif;
+      font-size: 2rem;
+
+      display: grid;
+      place-content: center;
+      gap: 5rem;
+    }
+
+    .text {
+      inline-size: 100%;
+      position: relative;
+    }
+
+    /* --------------------------------- Input ----------------------------- */
+    input {
+      border: none;
+      background-image: none;
+      background-color: transparent;
+      box-shadow: none;
+
+      border-bottom: 1px solid #333;
+    }
+
+    input, textarea {
+      inline-size: 100%;
+      padding: 1.3rem;
+    }
+
+    input:focus {
+      border-bottom: 1px solid purple;
+      outline: 1px solid purple;
+    }
+
+    input:not(:focus):valid {
+      background-color: transparent;
+    }
+
+    label {
+        position: absolute;
+        top: -3.1rem;
+        left: 1rem;
+
+        font-size: 1.9rem;
+    }
+
+  </style>
+  
+</head>
+
+<body>
+
+    <div class="text">
+
+      <input
+        id="qrtext"
+        type="text"
+        name="qrtext"
+        placeholder="text here ...">
+      <label for="qrtext">QrText</label>
+
+    </div>
+    
+    <qr-code-element
+      error-correction="medium"
+      mask-pattern="-1">
+    </qr-code-element>
+
+  <noscript>
+    Please enable JavaScript to view this website.
+  </noscript>
+
+  <!-- Import Js Module -->
+  <script type="module" src="../qr-code-element.js"></script>
+
+  <script>
+
+    window.addEventListener('DOMContentLoaded', (e) => {
+
+      const qrText = document.getElementById('qrtext')
+
+      qrText.addEventListener('input', (e) => {
+        
+        const qrCodeElement = document.querySelector('qr-code-element')
+        qrCodeElement.setAttribute('text', event.target.value)
+      })
+
+    })
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "name": "qr-code-element",
+  "version": "0.0.1",
+  "description": "QRCode Lit CustomElement based on qrcode npmjs package",
+  "main": "qr-code-element.js",
+  "type": "module",
+  "module": "qr-code-element.js",
+  "scripts": {
+    "dev": "web-dev-server --node-resolve --app-index examples/index.html --watch --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CICCIOSGAMINO/qr-code-element.git"
+  },
+  "keywords": [
+    "QrCode",
+    "WebComponent",
+    "CustomElement",
+    "lit",
+    "project nayuki"
+  ],
+  "author": "@cicciosgamino",
+  "license": "GPL-3.0",
+  "private": "false",
+  "bugs": {
+    "url": "https://github.com/CICCIOSGAMINO/qr-code-element/issues"
+  },
+  "homepage": "https://github.com/CICCIOSGAMINO/qr-code-element#readme",
+  "dependencies": {
+    "lit": "*"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.1.35"
+  },
+  "directories": {
+    "example": "examples"
+  }
+}
