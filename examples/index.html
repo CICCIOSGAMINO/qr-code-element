@@ -84,6 +84,13 @@
         font-size: 1.9rem;
     }
 
+    qr-code-element {
+      --size: 33rem;
+
+      /* neede only if you slot the center svg image */
+      --icon-size: 6.7rem;
+    }
+
   </style>
   
 </head>
@@ -102,8 +109,18 @@
     </div>
     
     <qr-code-element
+      text="Hello World"
+      graphic-element="svg"
       error-correction="medium"
       mask-pattern="-1">
+
+      <!-- center icon | set slot="icon" attribute
+      <svg version="1.1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" slot="icon">
+        <ellipse cx="24" cy="24.187" rx="24" ry="23.813" fill="#fff" stop-color="#000000" style="paint-order:stroke fill markers"/>
+        <path d="m14.784 13.284a1.5002 1.5002 0 0 0-1.5 1.5v18.432a1.5002 1.5002 0 0 0 1.5 1.5h18.432a1.5002 1.5002 0 0 0 1.5-1.5v-18.432a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h15.432v15.432h-15.432zm10.074 7.0645-3.2324 4.2383-2.1348-2.7305-2.9199 3.8613h12.273z" color="#000000" style="-inkscape-stroke:none;paint-order:stroke fill markers"/>
+       </svg> -->
+       
+       
     </qr-code-element>
 
   <noscript>
@@ -118,10 +135,12 @@
     window.addEventListener('DOMContentLoaded', (e) => {
 
       const qrText = document.getElementById('qrtext')
+      const qrCodeElement = document.querySelector('qr-code-element')
+
+      // get the statistics if you need
+      // qrCodeElement.getStatistics()
 
       qrText.addEventListener('input', (e) => {
-        
-        const qrCodeElement = document.querySelector('qr-code-element')
         qrCodeElement.setAttribute('text', event.target.value)
       })
 

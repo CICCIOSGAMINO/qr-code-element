@@ -2,7 +2,9 @@ import { LitElement, css, html, svg } from 'lit'
 
 import {
 	QrCode,
+	QrSegment,
 	Ecc,
+	countUnicodeChars,
 	drawOnCanvas,
 	toSvgString
 } from './qr-code.js'
@@ -20,16 +22,33 @@ class QrCodeElement extends LitElement {
 	static get styles () {
 		return css`
 			:host {
+				--size: var(--size, 11rem);
+				--icon-size: var(--icon-size, calc(var(--size) * 0.15));
+
 				display: block;
+				position: relative;
+			}
+
+			::slotted(svg) {
+				inline-size: var(--icon-size);
+				block-size: var(--icon-size);
+
+				position: absolute;
+				top: calc((var(--size) - var(--icon-size)) / 2);
+				left: calc((var(--size) - var(--icon-size)) / 2);
+
+				z-index: 10;
+
+				/* border-radius: 50%; */
+				/* background-color: whitesmoke; */
 			}
 
 			canvas {
-				/* stuff for canvas */
+				inline-size: var(--size);
+				block-size: var(--size);
 			}
 
 			svg {
-				/* stuff for SVG */
-				--size: 11rem;
 				inline-size: var(--size);
 				block-size: var(--size);
 			}
@@ -39,6 +58,24 @@ class QrCodeElement extends LitElement {
 	static get properties () {
 		return {
 			text: String,
+			graphicElement: {
+				type: String,
+				attribute: 'graphic-element',
+				converter: {
+					fromAttribute: (value, type) => {
+
+						switch (value.toLowerCase()) {
+							case 'svg':
+								return 'svg'
+							case 'canvas':
+								return 'canvas'
+							default:
+								return 'svg'
+						}
+
+					}
+				}
+			},
 			scale: Number,
 			border: Number,
 			maskPattern: {
@@ -111,14 +148,13 @@ class QrCodeElement extends LitElement {
 		this.errorCorrection = Ecc.MEDIUM
 		this.bkColor = '#fff'
 		this.tileColor = '#000'
-
-		this.svg = ''
 	}
 
 	willUpdate (changedProperties) {
 
 		// listen for change in the attributes to compute new qr
 		if (changedProperties.has('text') ||
+			changedProperties.has('graphicElement') ||
 			changedProperties.has('maskPattern') ||
 			changedProperties.has('errorCorrection') ||
 			changedProperties.has('bkColor') ||
@@ -127,42 +163,68 @@ class QrCodeElement extends LitElement {
 			changedProperties.has('border')
 			) {
 
-			const cvs = this.renderRoot.querySelector('#cvs')
+			const qr = QrCode.encodeText(this.text, this.errorCorrection)
 
-			if (!cvs) return
+			// populate the svg element
+			if (this.graphicElement === 'svg') {
+
+				this.svg = toSvgString(
+					qr,
+					this.border,
+					this.bkColor,
+					this.tileColor
+				)
+
+			}
+
+		}
+
+	}
+
+	// Show the QR Code symbol's statistics as a object
+	getStatistics () {
+		const qr = QrCode.encodeText(this.text, this.errorCorrection)
+		const segs = QrSegment.makeSegments(this.text)
+
+		const statistics = {
+			qrVersion: qr.version,
+			maskPattern: qr.mask,
+			characterCount: countUnicodeChars(this.text),
+			errorCorrection: this.errorCorrection.ordinal,
+			dataBits: Number(QrSegment.getTotalBits(segs, qr.version))
+
+		}
+
+		return statistics
+	}
+
+	render () {
+
+		if (this.graphicElement === 'canvas') {
 
 			const qr = QrCode.encodeText(this.text, this.errorCorrection)
 
-			// draw on canvas the qr code generated
+			let cvs = this.renderRoot.querySelector('canvas')
+			if (!cvs) {
+				cvs = document.createElement('canvas')
+				this.renderRoot.appendChild(cvs)
+			}
+			
 			drawOnCanvas(
 				qr,
 				this.scale,
 				this.border,
 				this.bkColor,
 				this.tileColor,
-				cvs)
-
-			this.svg = toSvgString(
-				qr,
-				this.border,
-				this.bkColor,
-				this.tileColor
+				cvs
 			)
 
 		}
 
-	} 
-
-	firstUpdated () {
-		this.text = '@CICCIOSGAMINO 🧑‍💻'
-	}
-	
-	render () {
-
 		return html`
-			<canvas id="cvs"></canvas>
+			${this.svg}
 
-			${svg`${this.svg}`}
+			<slot name="icon"></slot>
 		`
 	}
 }

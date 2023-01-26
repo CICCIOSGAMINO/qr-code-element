@@ -4,7 +4,7 @@
 
 # 🦓 \<qr-code-element\>
 
-v0.0.1 - 25-01-2023
+v0.0.1 - 26-01-2023
 
 QR-Code WebComponent based on Project Nayuki Qr Code Library. Nayuki project aims to be the best, clearest library for generating QR Codes. Get more info at official page:
 
@@ -12,9 +12,22 @@ https://www.nayuki.io/page/qr-code-generator-library
 
 Nayuki Qr Code Library v1.8.0 - Javascript
 
-**Canvas**
-
 **SVG**
+SVG is the default graphic format the Qr Code is build-up in the \<qr-code-element\> . Define the size of the WebComponent with a CSS custom properties: 
+
+```css
+qr-code-element {
+  --size: 7rem;
+}
+```
+
+Keep in mind that you can style the background and tile colors of the Qr Code with the attribute *bkColor* and *tileColor* as you can see in attributes table.
+
+When the QrCode is render in SVG format the *scale* attribute can be use to set a ratio between the Qr Code dimension and the *border*. 
+
+**Canvas**
+Set the attribute 
+
 
 <p align="center">
   <a href="#examples">examples</a> •
@@ -65,17 +78,16 @@ npm install --save @cicciosgamino/qr-code-element
 
 4. Use the component with LitElement
 ```javascript
-import { QrCodeElement } from '@cicciosgamino/qr-code-element'
+import * from '@cicciosgamino/qr-code-element'
 
 render () {
   return html`
-    <web-socket 
-      url="ws://127.0.0.1:8888" 
-      ui
-      @ws-message=${this._handleMsg}
-      @ws-status=${this._handleStatus}
-      @ws-error=${this._handleError}>
-    </web-socket>
+    <qr-code-element
+      text="Hello World"
+      graphic-element="canvas"
+      error-correction="medium"
+      mask-pattern="-1">
+    </qr-code-element>
   `
 }
 ```
@@ -84,12 +96,12 @@ render () {
 
 ```javascript
 // plain html
-document.querySelector('#ws-element')
-			.setAttribute('url','ws://127.0.0.1:8888')
+document.querySelector('qr-code-element')
+			.setAttribute('text','@NEW TEXT >TO ENCODE!')
 
 // in lit element
-this.renderRoot.querySelector('#ws-element')
-			.setAttribute('url','ws://127.0.0.1:8888')
+this.renderRoot.querySelector('qr-code-element')
+			.setAttribute('text','@HELLO >> New new World!')
 ```
 
 ## 🐝 API
@@ -99,6 +111,7 @@ this.renderRoot.querySelector('#ws-element')
 | Name | Type | Default | Description
 | ------------- | ------------- | ---------- | -------------------------------
 | text          | String | `'@cicciosgamino'`| The Unicode Text string to Encode
+| graphic-element | String | `'svg'`         | Render Qr Code in SVG or Canvas element [svg | canvas]
 | scale         | Number | `10`              | Scale of Qr - Number greather than 1
 | border        | Number | `1`               | Border of Qr - Number greather or equal to 0
 | bk-color      | String | `#fff`            | Background Color
@@ -119,7 +132,8 @@ No Events
 
 | Name | Default | Description
 | --------------- | ------- | --------------------------------
-| `--size`        | `11rem` | SIZExSIZE when SVG is generated
+| `--size`        | `11rem` | SIZExSIZE when graphic-element=svg
+| `--icon-size`   | `15% of --size` | SIZExSIZE of centered icon | slotted svg icon
 
 ### 🤖 Write HTML and JavaScript
 Import the component's JavaScript module, use the component in your HTML, and control it with JavaScript, just like you would with a built-in element such as `<button>`:
@@ -229,6 +243,7 @@ Got **something interesting** you'd like to **share**? Learn about [contributing
 # Accessibility
 
 # 🔧 TODO
+- [ ] Slot the SVG image for center - Working on (1/2 functionality already in place)
 - [ ] Basic Unit testing
 - [ ] A11y compatible ?
 

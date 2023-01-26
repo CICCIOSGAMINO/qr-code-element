@@ -1,3 +1,4 @@
+import { svg } from 'lit'
 /*
  * QR Code generator library Javascript v1.8.0 ES6
  *
@@ -20,6 +21,24 @@
  *   out of or in connection with the Software or the use or other dealings in the
  *   Software.
  */
+
+/**
+ * Returns the number of Unicode code points in the given UTF-16 string.
+ * @param {String} str - Input string
+ * @returns {Number}
+ */
+const countUnicodeChars = (str) => {
+
+    let result = 0
+    for (const ch of str) {
+        const cc = Number(ch.codePointAt(0))
+        if (0xD800 <= cc && cc < 0xE000)
+            throw new RangeError("Invalid UTF-16 string")
+        result++
+    }
+
+    return result
+}
 
 /**
  * Appends the given number of low-order bits of the given value 
@@ -1005,7 +1024,8 @@ const toSvgString = (
 
         }
     }
-    return `<?xml version="1.0" encoding="UTF-8"?>
+    
+    return svg`<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${qr.size + border * 2} ${qr.size + border * 2}" stroke="none">
 <rect width="100%" height="100%" fill="${lightColor}"/>
@@ -1014,4 +1034,4 @@ const toSvgString = (
 `
 }
 
-export { QrCode, Ecc, drawOnCanvas, toSvgString }
+export { QrCode, QrSegment, Ecc, countUnicodeChars, drawOnCanvas, toSvgString }
