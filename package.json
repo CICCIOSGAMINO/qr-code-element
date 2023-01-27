@@ -1,6 +1,6 @@
 {
   "name": "@cicciosgamino/qr-code-element",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "QR-Code WebComponent based on Project Nayuki Qr Code Library",
   "main": "qr-code-element.js",
   "type": "module",
@@ -22,7 +22,6 @@
   ],
   "author": "@cicciosgamino",
   "license": "GPL-3.0",
-  "private": "false",
   "bugs": {
     "url": "https://github.com/CICCIOSGAMINO/qr-code-element/issues"
   },

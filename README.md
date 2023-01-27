@@ -4,7 +4,7 @@
 
 # 🦓 \<qr-code-element\>
 
-v0.0.1 - 26-01-2023
+v0.0.5 - 27-01-2023
 
 QR-Code WebComponent based on Project Nayuki Qr Code Library. Nayuki project aims to be the best, clearest library for generating QR Codes. Get more info at official page:
 
@@ -18,6 +18,10 @@ SVG is the default graphic format the Qr Code is build-up in the \<qr-code-eleme
 ```css
 qr-code-element {
   --size: 7rem;
+
+  /* fallback for some browsersd */
+  inline-size: 7rem;
+  block-size: 7rem;
 }
 ```
 
@@ -26,7 +30,26 @@ Keep in mind that you can style the background and tile colors of the Qr Code wi
 When the QrCode is render in SVG format the *scale* attribute can be use to set a ratio between the Qr Code dimension and the *border*. 
 
 **Canvas**
-Set the attribute 
+Set the attribute *graphic-element* to canvas and the qr code will be render in a HTMLCanvasElement. The size of the canvas is managed mainly from the *scale* attribute, so try to change the scale attribute until you find the right size. When you have the *scale* you want to use you can adjust the pixel size of the qr code with the CSS applied to the \<qr-code-element\> , do NOT use only the CSS to get a big size of the qr code, penalty loss in graphic definition.
+
+```html
+<qr-code-element
+    text="Hello World"
+    graphic-element="canvas"
+    scale="10"
+    error-correction="medium">
+<qr-code-element>
+```
+
+```css
+qr-code-element {
+  --size: 11rem;
+
+  /* fallback for some browsersd */
+  inline-size: 11rem;
+  block-size: 11rem;
+}
+```
 
 
 <p align="center">
@@ -39,7 +62,7 @@ Set the attribute
 
 ## Examples
 
-![Qr-Code-Element](https://raw.githubusercontent.com/CICCIOSGAMINO/cicciosgamino.github.io/master/images/qr-code.png)
+![Qr-Code-Element](https://cicciosgamino.web.app/images/qr-code.png)
 
 ```html
 <qr-code-element

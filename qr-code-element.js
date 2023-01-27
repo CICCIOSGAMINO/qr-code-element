@@ -29,6 +29,11 @@ class QrCodeElement extends LitElement {
 				position: relative;
 			}
 
+			:host > svg {
+				inline-size: var(--size);
+				block-size: var(--size);
+			}
+
 			::slotted(svg) {
 				inline-size: var(--icon-size);
 				block-size: var(--icon-size);

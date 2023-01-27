@@ -1,4 +1,3 @@
-import { svg } from 'lit'
 /*
  * QR Code generator library Javascript v1.8.0 ES6
  *
@@ -21,6 +20,8 @@ import { svg } from 'lit'
  *   out of or in connection with the Software or the use or other dealings in the
  *   Software.
  */
+
+import { svg } from 'lit'
 
 /**
  * Returns the number of Unicode code points in the given UTF-16 string.
