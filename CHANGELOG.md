@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 22-02-2023
+
+### Changed
+	- Fix SVG setting - now default graphic element is SVG
+
 ## [0.0.5] - 27-01-2023
 
 ### Changed

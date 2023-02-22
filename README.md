@@ -4,7 +4,7 @@
 
 # 🦓 \<qr-code-element\>
 
-v0.0.5 - 27-01-2023
+v0.1.0 - 22-02-2023
 
 QR-Code WebComponent based on Project Nayuki Qr Code Library. Nayuki project aims to be the best, clearest library for generating QR Codes. Get more info at official page:
 
@@ -16,12 +16,9 @@ Nayuki Qr Code Library v1.8.0 - Javascript
 SVG is the default graphic format the Qr Code is build-up in the \<qr-code-element\> . Define the size of the WebComponent with a CSS custom properties: 
 
 ```css
+/* size the qr code if svg */
 qr-code-element {
   --size: 7rem;
-
-  /* fallback for some browsersd */
-  inline-size: 7rem;
-  block-size: 7rem;
 }
 ```
 
@@ -44,10 +41,6 @@ Set the attribute *graphic-element* to canvas and the qr code will be render in 
 ```css
 qr-code-element {
   --size: 11rem;
-
-  /* fallback for some browsersd */
-  inline-size: 11rem;
-  block-size: 11rem;
 }
 ```
 

@@ -153,6 +153,8 @@ class QrCodeElement extends LitElement {
 		this.errorCorrection = Ecc.MEDIUM
 		this.bkColor = '#fff'
 		this.tileColor = '#000'
+
+		this.graphicElement = 'svg'
 	}
 
 	willUpdate (changedProperties) {

@@ -1,6 +1,6 @@
 {
   "name": "@cicciosgamino/qr-code-element",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "QR-Code WebComponent based on Project Nayuki Qr Code Library",
   "main": "qr-code-element.js",
   "type": "module",
